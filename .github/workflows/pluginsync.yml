@@ -30,6 +30,7 @@ jobs:
             "https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/plugins.json"
             "https://raw.githubusercontent.com/sarapcanagii/Pitipitii/builds/plugins.json"
             "https://raw.githubusercontent.com/ramazansancar/keyiflerolsun_Kekik-cloudstream/builds/plugins.json"
+            "https://raw.githubusercontent.com/Sertel392/Makotogecici/main/plugins.json"
           )
           # Tüm kaynaklardan array objeleri tek dizide topla
           jq -n '[]' > plugins.json
