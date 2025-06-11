@@ -1,0 +1,55 @@
+# Bu bot @WantedGang tarafından yazılmıştır...
+name: Plugin JSON Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-plugins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Gerekli araçları kur
+        run: sudo apt-get update && sudo apt-get install -y curl jq
+
+      - name: Tüm kaynaklardan plugins.json'u eksiksiz birleştir
+        run: |
+          urls=(
+            "https://raw.githubusercontent.com/maarrem/cs-Kekik/builds/plugins.json"
+            "https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/plugins.json"
+            "https://raw.githubusercontent.com/feroxx/Kekik-cloudstream/builds/plugins.json"
+            "https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/plugins.json"
+            "https://raw.githubusercontent.com/sarapcanagii/Pitipitii/builds/plugins.json"
+            "https://raw.githubusercontent.com/ramazansancar/keyiflerolsun_Kekik-cloudstream/builds/plugins.json"
+          )
+          # Tüm kaynaklardan array objeleri tek dizide topla
+          jq -n '[]' > plugins.json
+          for url in "${urls[@]}"; do
+            echo "Kaynak: $url"
+            data=$(curl -sfL "$url" || echo "")
+            if [ -n "$data" ] && echo "$data" | jq 'type == "array"' 2>/dev/null | grep true >/dev/null; then
+              tmp=$(mktemp)
+              jq -s '.[0] + .[1]' plugins.json <(echo "$data") > "$tmp" && mv "$tmp" plugins.json
+              count=$(echo "$data" | jq 'length')
+              echo "→ $count obje eklendi"
+            else
+              echo "Uyarı: $url JSON array formatında değil veya boş, atlandı."
+            fi
+          done
+
+      - name: Değişiklik var mı kontrol et ve pushla
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add plugins.json
+          git diff --staged --quiet || git commit -m "Auto update plugins.json"
+          git push
