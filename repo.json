@@ -1,0 +1,8 @@
+{
+    "name": "TRepo",
+    "description": "Seç-Beğen-İzle",
+    "manifestVersion": 1,
+    "pluginLists": [
+      "https://raw.githubusercontent.com/WantedGang/WG-TRepo/master/plugins.json"
+    ]
+}
