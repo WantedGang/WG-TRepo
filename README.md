@@ -1,4 +1,4 @@
-# 🇹🇷 TRepo 🇹🇷
+# ✨ TRepo ✨
 
 🎬 **CloudStream için Hazırlanan Tüm Türk Eklentiler Tek Yerde!**  
 💥 Yabancılarda gözün kalmasın, tüm yerli kaynaklar burada! 💥
@@ -6,7 +6,7 @@
 ---
 
 <p align="center">
-  <img src="assets/tRepo-banner.jpg" alt="TRepo Banner" width="800"/>
+  <img src="https://github.com/WantedGang/WG-TRepo/blob/master/TRepo.png" alt="TRepo Banner" width="800"/>
 </p>
 
 ---
@@ -51,7 +51,6 @@ veya
 
 ## 🤝 Katkı Sağlamak Çok Kolay!
 
-- Yeni Türk eklentisi eklemek mi istiyorsun? PR (pull request) aç!
 - Soru, sorun, öneri mi var? Issue oluştur!
 - Beğendiysen ⭐ bırak, destek ol!
 
