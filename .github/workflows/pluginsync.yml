@@ -3,7 +3,7 @@ name: Plugin JSON Sync
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 21 * * *'
   workflow_dispatch:
 
 permissions:
