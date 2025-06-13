@@ -2085,7 +2085,7 @@
     "iconUrl": "https://www.google.com/s2/favicons?domain=www.fullhdfilmizlesene.de&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/nikyokki/nik-cloudstream",
-    "fileSize": 31821,
+    "fileSize": 33621,
     "status": 1,
     "language": "tr",
     "authors": [
@@ -2095,7 +2095,7 @@
     "tvTypes": [
       "Movie"
     ],
-    "version": 8,
+    "version": 9,
     "internalName": "FullHDFilmizlesene",
     "description": "Sinema zevkini evinize kadar getirdik. Türkiye'nin lider Film sitesinde, en yeni filmleri Full HD izleyin.",
     "url": "https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/FullHDFilmizlesene.cs3",
@@ -2452,7 +2452,7 @@
     "iconUrl": "https://www.google.com/s2/favicons?domain=roketdizi.co&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/nikyokki/nik-cloudstream",
-    "fileSize": 20734,
+    "fileSize": 36042,
     "status": 1,
     "language": "tr",
     "authors": [
@@ -2461,7 +2461,7 @@
     "tvTypes": [
       "TvSeries"
     ],
-    "version": 8,
+    "version": 11,
     "internalName": "RoketDizi",
     "description": "Türkiye'nin en tatlış yabancı dizi izleme sitesi. Türkçe dublaj, altyazılı, eski ve yeni yabancı dizilerin yanı sıra kore (asya) dizileri izleyebilirsiniz.",
     "url": "https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/RoketDizi.cs3",
@@ -2594,7 +2594,7 @@
     "iconUrl": "https://www.google.com/s2/favicons?domain=www.superfilmgeldi.biz&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/nikyokki/nik-cloudstream",
-    "fileSize": 18216,
+    "fileSize": 18218,
     "status": 1,
     "language": "tr",
     "authors": [
@@ -2604,7 +2604,7 @@
     "tvTypes": [
       "Movie"
     ],
-    "version": 6,
+    "version": 7,
     "internalName": "SuperFilmGeldi",
     "description": "Hd film izliyerek arkadaşlarınızla ve sevdiklerinizle iyi bir vakit geçirmek istiyorsanız açın bir film eğlenmeye bakın. Bilim kurgu filmleri, aşk drama vahşet aşk romantik sıradışı korku filmlerini izle.",
     "url": "https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/SuperFilmGeldi.cs3",
@@ -2805,7 +2805,7 @@
     "iconUrl": "https://www.google.com/s2/favicons?domain=webteizle2.com&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/nikyokki/nik-cloudstream",
-    "fileSize": 22421,
+    "fileSize": 22419,
     "status": 1,
     "language": "tr",
     "authors": [
@@ -4171,6 +4171,25 @@
     "name": "Filmİzlesene"
   },
   {
+    "iconUrl": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.filmizyon.com/&size=64",
+    "apiVersion": 1,
+    "repositoryUrl": "https://github.com/Kraptor123/cs-kekikanime",
+    "fileSize": 11721,
+    "status": 1,
+    "language": "tr",
+    "authors": [
+      "kraptor"
+    ],
+    "tvTypes": [
+      "Movie"
+    ],
+    "version": 1,
+    "internalName": "FilmIzyon",
+    "description": "Yerli ve yabancı ödüllü tüm filmleri Türkçe Dublaj veya Orjinal dilde izleyebileceğiniz Türkiye'nin en kaliteli film izleme platformuna hoşgeldiniz.",
+    "url": "https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/FilmIzyon.cs3",
+    "name": "FilmIzyon"
+  },
+  {
     "iconUrl": "https://www.google.com/s2/favicons?domain=filmkovasi.tv&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/Kraptor123/cs-kekikanime",
@@ -4689,7 +4708,7 @@
     "iconUrl": "https://www.google.com/s2/favicons?domain=www.superfilmgeldi.biz&sz=%size%",
     "apiVersion": 1,
     "repositoryUrl": "https://github.com/Kraptor123/cs-kekikanime",
-    "fileSize": 18180,
+    "fileSize": 18178,
     "status": 1,
     "language": "tr",
     "authors": [
@@ -4698,7 +4717,7 @@
     "tvTypes": [
       "Movie"
     ],
-    "version": 7,
+    "version": 8,
     "internalName": "SuperFilmGeldi",
     "description": "Hd film izliyerek arkadaşlarınızla ve sevdiklerinizle iyi bir vakit geçirmek istiyorsanız açın bir film eğlenmeye bakın. Bilim kurgu filmleri, aşk drama vahşet aşk romantik sıradışı korku filmlerini izle.",
     "url": "https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/SuperFilmGeldi.cs3",
