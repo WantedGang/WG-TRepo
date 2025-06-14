@@ -1,4 +1,4 @@
-# Bu bot @WantedGang tarafından yazılmıştır...
+# This bot was written by @WantedGang...
 name: Plugin JSON Sync
 
 on:
@@ -13,45 +13,84 @@ jobs:
   sync-plugins:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master branch
+      - name: Checkout default branch
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: ${{ github.event.repository.default_branch }}
 
-      - name: Gerekli araçları kur
-        run: sudo apt-get update && sudo apt-get install -y curl jq
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Tüm kaynaklardan plugins.json'u eksiksiz birleştir
+      - name: Install node-fetch
+        run: npm install node-fetch@2
+
+      - name: Get plugins.json sources, filter NSFW and update authors
         run: |
-          urls=(
-            "https://raw.githubusercontent.com/maarrem/cs-Kekik/builds/plugins.json"
-            "https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/plugins.json"
-            "https://raw.githubusercontent.com/feroxx/Kekik-cloudstream/builds/plugins.json"
-            "https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/plugins.json"
-            "https://raw.githubusercontent.com/sarapcanagii/Pitipitii/builds/plugins.json"
-            "https://raw.githubusercontent.com/ramazansancar/keyiflerolsun_Kekik-cloudstream/builds/plugins.json"
-            "https://raw.githubusercontent.com/Sertel392/Makotogecici/main/plugins.json"
-            "https://raw.githubusercontent.com/WantedGang/WG-Temporary/main/plugins.json"
-          )
-          # Tüm kaynaklardan array objeleri tek dizide topla
-          jq -n '[]' > plugins.json
-          for url in "${urls[@]}"; do
-            echo "Kaynak: $url"
-            data=$(curl -sfL "$url" || echo "")
-            if [ -n "$data" ] && echo "$data" | jq 'type == "array"' 2>/dev/null | grep true >/dev/null; then
-              tmp=$(mktemp)
-              jq -s '.[0] + .[1]' plugins.json <(echo "$data") > "$tmp" && mv "$tmp" plugins.json
-              count=$(echo "$data" | jq 'length')
-              echo "→ $count obje eklendi"
-            else
-              echo "Uyarı: $url JSON array formatında değil veya boş, atlandı."
-            fi
-          done
+          node -e "
+          const fetch = require('node-fetch');
+          const fs = require('fs');
+          const urls = [
+            'https://raw.githubusercontent.com/maarrem/cs-Kekik/builds/plugins.json',
+            'https://raw.githubusercontent.com/nikyokki/nik-cloudstream/builds/plugins.json',
+            'https://raw.githubusercontent.com/feroxx/Kekik-cloudstream/builds/plugins.json',
+            'https://raw.githubusercontent.com/Kraptor123/cs-kekikanime/builds/plugins.json',
+            'https://raw.githubusercontent.com/sarapcanagii/Pitipitii/builds/plugins.json',
+            'https://raw.githubusercontent.com/ramazansancar/keyiflerolsun_Kekik-cloudstream/builds/plugins.json',
+            'https://raw.githubusercontent.com/Sertel392/Makotogecici/main/plugins.json',
+            'https://raw.githubusercontent.com/WantedGang/WG-Temporary/main/plugins.json'
+          ];
+          // Owner of the repository where the bot is running
+          const botOwner = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[0] : '';
+          (async () => {
+            let merged = [];
+            for (const url of urls) {
+              try {
+                const res = await fetch(url);
+                if (!res.ok) {
+                  console.warn(\`GET \${url} -> \${res.status} \${res.statusText}\`);
+                  continue;
+                }
+                const plugins = await res.json();
+                if (!Array.isArray(plugins)) {
+                  console.warn(\`\${url} -> plugins.json not found or invalid.\`);
+                  continue;
+                }
+                let added = 0;
+                for (const plugin of plugins) {
+                  if (Array.isArray(plugin.tvTypes) && plugin.tvTypes.includes('NSFW')) continue;
+                  // authors update
+                  if (!plugin.authors) {
+                    plugin.authors = [botOwner];
+                  } else if (Array.isArray(plugin.authors)) {
+                    if (!plugin.authors.includes(botOwner)) plugin.authors.push(botOwner);
+                  } else if (typeof plugin.authors === 'string') {
+                    if (plugin.authors !== botOwner) {
+                      plugin.authors = [plugin.authors, botOwner];
+                    } else {
+                      plugin.authors = [botOwner];
+                    }
+                  }
+                  merged.push(plugin);
+                  added++;
+                }
+                console.log('Source: ' + url);
+                console.log('→ ' + added + ' objects added');
+              } catch (e) {
+                console.error(\`GET \${url} -> error: \${e.message}\`);
+                continue;
+              }
+            }
+            fs.writeFileSync('plugins.json', JSON.stringify(merged, null, 2));
+            console.log('plugins.json created. Total plugins:', merged.length);
+          })();
+          "
 
-      - name: Değişiklik var mı kontrol et ve pushla
+      - name: Check if there is a change and push
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
           git add plugins.json
           git diff --staged --quiet || git commit -m "Auto update plugins.json"
           git push
